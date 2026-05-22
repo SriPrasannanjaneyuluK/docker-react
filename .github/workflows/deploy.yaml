@@ -1,4 +1,4 @@
-name: Deploy Frontend
+name: Frontend CI
 on:
   push:
     branch:
@@ -10,5 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -P {{ secrets.DOCKER_PASSWORD }}
+      - name: Build Docker Image
       - run: docker build -t bymywheels/react-test -f Dockerfile.dev .
-      - run: docker run -e CI=true bymywheels/react-test npm test
+      - name: Run Tests
+      - run: docker run -e CI=true bymywheels/react-test npm test -- --coverage
