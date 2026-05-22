@@ -12,6 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: docker run login -u {{ secrets.DOCKER_USERNAME }} -p {{ secrets.DOCKER_PASSWORD }}
+
       - name: Build Docker Image
         run: docker build -t react-test -f Dockerfile.dev .
 
